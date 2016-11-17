@@ -1,0 +1,64 @@
+<?php
+// +----------------------------------------------------------------------
+// | author     王杰
+// +----------------------------------------------------------------------
+// | time       2016-11-01
+// +----------------------------------------------------------------------
+// | version    3.0.1
+// +----------------------------------------------------------------------
+// | introduce  获取错误信息   打印数据
+// +----------------------------------------------------------------------
+namespace core;
+
+defined('ACC') || exit('ACC Denied');
+
+
+class Error {
+    /**
+     * [diyError 获取错误信息]
+     * @param  string $type  [错误名称]
+     * @return [array]       [错误数据]
+     */
+    public static function diyError($type = ''){
+        if (!file_exists(TYPE)) {
+            debug('no found file ' . TYPE);
+            return false;
+        }
+        $arr = include(ERRORFILE);
+        if ($type) {
+            if (!in_array($type,$arr)) {
+                return $arr[$type];
+            } else {
+                debug('no found type '.$type);
+                return false;
+            }
+        }
+        return $arr;
+    }
+
+    /**
+     * [getError 获取错误信息]
+     * @param  [string]  $data  [error文件中的键值]
+     * @param  integer $error   [判断是不是错误信息]
+     * @return [array]          [如果是错误直接输出，否则返回数组]
+     */
+    public static function getError($data, $error = 0){
+        $error = self::diyError($data);
+        $arr['code'] = $error[0];
+        $arr['msg'] = $error[1];
+        if ($error == 0) {
+            return $arr;
+        }else{
+            self::renderForAjax($arr);
+        }
+    }
+
+    /**
+     * [renderForAjax 输出json数据]
+     * @param  [array] $arr [输出的数据]
+     */
+    public static function renderForAjax($arr){
+        echo json_encode($arr, JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+}
