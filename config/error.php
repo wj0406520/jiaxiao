@@ -10,7 +10,7 @@
 // +----------------------------------------------------------------------
 
 defined('ACC')||exit('ACC Denied');
-return array(
+return [
 
 		'token'=>array(200,'token丢失'),
 		'success'=>array(100,'操作成功'),
@@ -24,7 +24,9 @@ return array(
 		'code'=>array(10007,'验证码错误'),
 		'usermiss'=>array(10009,'帐号不存在'),
 
-		'paramMiss'=>array(20001,'缺少参数'),
+		'paramMiss'=>array(10100,'缺少参数'),
+		'typeError'=>array(10101,'类型错误'),
+
 		'msgapierror'=>array(20002,'短信接口返回失败'),
 		'msgerror'=>array(20003,'短信未验证，30分钟有效'),
 		'phonecodeerror'=>array(20004,'短信验证失败'),
@@ -35,11 +37,6 @@ return array(
 		'fileNo'=>array(30004,'没找到上传文件'),
 
 
-		'cardhad'=>array(10008,'银行卡已存在，请勿重复提交'),
-		'card'=>array(10010,'身份证验证错误'),
-		'cardHad'=>array(10011,'当前身份已认证'),
-		'nopay'=>array(10012,'当前用户未身份认证，无法购买'),
 
 
-
-	);
+];

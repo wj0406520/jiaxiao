@@ -39,14 +39,15 @@ class Error {
     /**
      * [getError 获取错误信息]
      * @param  [string]  $data  [error文件中的键值]
-     * @param  integer $error   [判断是不是错误信息]
+     * @param  integer $type   [判断是不是错误信息]
      * @return [array]          [如果是错误直接输出，否则返回数组]
      */
-    public static function getError($data, $error = 0){
+    public static function getError($data, $type = 0){
         $error = self::diyError($data);
         $arr['code'] = $error[0];
         $arr['msg'] = $error[1];
-        if ($error == 0) {
+
+        if ($type == 0) {
             return $arr;
         }else{
             self::renderForAjax($arr);
@@ -58,7 +59,7 @@ class Error {
      * @param  [array] $arr [输出的数据]
      */
     public static function renderForAjax($arr){
-        echo json_encode($arr, JSON_UNESCAPED_UNICODE);
+        echo jsonEncode($arr);
         exit;
     }
 }

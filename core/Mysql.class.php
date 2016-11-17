@@ -168,7 +168,7 @@ class Mysql extends Db {
     // 返回最新的auto_increment列的自增长的值
     public function insertId()
     {
-        return $this->mysqli->insertId;
+        return $this->mysqli->insert_id;
     }
 
     /**

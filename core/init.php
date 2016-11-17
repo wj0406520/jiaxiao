@@ -58,7 +58,7 @@ defined('TOOL')        || define('TOOL',ROOT.'tool/');
 defined('PATH')        || define('PATH', str_replace($_SERVER['DOCUMENT_ROOT'],'',ROOT.APP).PACK.'/');
 
 //访问时间
-defined('TIME')        || define('TIME', $_SERVER['SCRIPT_NAME']);
+defined('TIME')        || define('TIME', $_SERVER['REQUEST_TIME']);
 
 //访问路径前缀
 defined('URL') 	       || define('URL', $_SERVER['SCRIPT_NAME']);

@@ -14,18 +14,18 @@ class all extends core\Controls
     public function before()
     {
 
-    	if($this->check==1){
+    	if ($this->check == 1) {
 
-			$post=$this->validate(array(
-				'token'=>array('token','length','32,50'),
-			));
+			$post = $this->validate([
+				'token' => ['token', 'length', '32,50'],
+			]);
 
-			$a=$this->models('all')->checkToken($post['token']);
+			$a = $this->models('all')->checkToken($post['token']);
 			$this->models();
-			if($a){
-				$this->userId=$a;
-			}else{
-				$this->errorMsg('tokenMiss');
+			if ($a) {
+				\core\Models::$user_id = $a;
+			} else {
+				$this->errorMsg('token');
 			}
     	}
     }

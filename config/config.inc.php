@@ -18,7 +18,7 @@ return [
 
     'pwd' =>'root',         // 数据库密码
 
-    'db' =>'hanke',         //数据库表名
+    'db' =>'jiaxiao',         //数据库表名
 
     'char' => 'utf8',       // 数据库字符集
 

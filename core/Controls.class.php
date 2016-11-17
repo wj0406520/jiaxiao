@@ -239,6 +239,7 @@ class Controls {
           $data[$key] = isset($value) ? $value : '';
         }
       }
+
       $arr = Error::getError('success');
 
       $arr['data'] = $data;

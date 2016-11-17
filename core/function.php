@@ -122,7 +122,9 @@ function accessController(){
     // call_user_func(array($name.$m, $a));
 }
 
-
+function jsonEncode($arr){
+    return json_encode($arr, JSON_UNESCAPED_UNICODE);
+}
 
 //跳转到根目录
 function getRoot($url = ''){
