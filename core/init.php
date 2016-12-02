@@ -61,7 +61,7 @@ defined('PATH')        || define('PATH', str_replace($_SERVER['DOCUMENT_ROOT'],'
 defined('TIME')        || define('TIME', $_SERVER['REQUEST_TIME']);
 
 //访问路径前缀
-defined('URL') 	       || define('URL', $_SERVER['SCRIPT_NAME']);
+defined('URL') 	       || define('URL', str_replace('/index.php','',$_SERVER["SCRIPT_NAME"]));
 
 //配置文件
 defined('CONFIG')      || define('CONFIG',ROOT . 'config/config.inc.php');

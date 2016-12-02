@@ -1,0 +1,99 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>用户管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="<?php echo PATH;?>css/common.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo PATH;?>css/main.css" />
+<style type="text/css">
+    #user_type option{
+        padding: 2px 4px;
+    }
+    .result-tab th,.result-tab td{
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+<!-- top -->
+<?php include VIEWSDIR.'/public/top.html'; ?>
+    <div class="container clearfix"  style="background:;">
+    <!-- menu -->
+<?php include VIEWSDIR.'/public/menu.html'; ?>
+        <div class="result-wrap">
+        <div class="crumb-wrap" style="margin-left:170px;">
+            <div class="crumb-list"><i class="icon-font"></i><a href="<?php echo URL;?>/index/index">首页</a><span class="crumb-step">&gt;</span><span>用户管理</span></div>
+        </div>
+            <div class="main-wrap">
+                <div class="result-title">
+                    <form action="?" method="get">
+                    <table class="search-tab">
+                        <tbody>
+                          <tr>
+                            <th width="70">用户名:</th>
+                            <td>
+                                <input class="common-text" placeholder="用户名" name="name" value="<?php if(isset($arr['name'])){echo $arr['name'];} ?>"  type="text">
+                            </td>
+                            <th width="70">手机号:</th>
+                            <td>
+                                <input class="common-text" placeholder="手机号" name="phone" value="<?php if(isset($arr['phone'])){echo $arr['phone'];} ?>" id="" type="text">
+                            </td>
+                            <th width="120">选择分类:</th>
+                            <td>
+                                <select name="type" id="user_type">
+                                    <option value="0">全部</option>
+                                    <?php foreach ($type as $key => $val) {?>
+                                    <option value="<?php echo $key?>" <?php if (isset($arr['type'])&&$arr['type']==$key) {echo 'selected';} ?>><?php echo $val?></option>
+                                    <?php }?>
+                                </select>
+                            </td>
+                            <td><input class="btn btn-primary btn2" value="查询" type="submit"></td>
+                          </tr>
+                        </tbody>
+                    </table>
+                    </form>
+                </div>
+                <div class="result-content">
+                    <table class="result-tab" width="100%">
+                        <tbody>
+                            <tr>
+                                <th>序号</th>
+                                <th>头像</th>
+                                <th>用户名</th>
+                                <th>手机号</th>
+                                <th>性别</th>
+                                <th>用户类型</th>
+                                <th>注册时间</th>
+                                <th>是否认证</th>
+                                <!-- <th>用户操作</th> -->
+                            </tr>
+                                <?php if($info){foreach ($info as $k=> $value) {?>
+                            <tr>
+                                <td><?php echo $k+1;?></td>
+                                <td>
+                                    <img src="<?php echo $value['face'];?>" height="50"/>
+                                </td>
+                                <td><?php echo $value['name'];?></td>
+                                <td><?php echo $value['phone'];?></td>
+                                <td><?php echo $sex[$value['sex']];?></td>
+                                <td><?php echo $type[$value['type']];?></td>
+                                <td><?php echo diyDate($value['create_time'],1);?></td>
+                                <td><?php echo $sfrz[$value['is_authen']];?></td>
+                               <!--  <td>
+                                    <a href="<?php //echo URL;?>/user/change?id=<?php //echo $value['id']?>">查询详情</a>
+                                </td> -->
+                            </tr>
+                            <?php }}else{?>
+                            <tr>
+                                <td colspan="8">当前没有您要的记录</td>
+                            </tr>
+                            
+                            <?php }echo $page;?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

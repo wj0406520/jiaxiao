@@ -32,7 +32,8 @@ class login extends all
 		$this->models->create(['token' => $token, 'id' => $a['id']]);
 
 		$arr['token'] = $token;
-		// $arr['type']=$a['type'];
+		$arr['type']=$a['type'];
+		$arr['im']=$a['im'];
 
 		$this->success($arr);
 
@@ -65,18 +66,22 @@ class login extends all
 			'name' => $post['name'],
 			'type' => $post['type'],
 			'password' => md5($post['password']),
-			'createtime' => TIME
+			'create_time' => TIME
 			];
 
 		$a = $this->models->create($array);
 
 		$a = $this->models->insertId();
 
+		$im=$this->models->registerIm($a);
+
 		$token = $a . '|' . token();
 
-		$this->models->create(['token' => $token, 'id' => $a]);
+		$this->models->create(['token' => $token, 'id' => $a, 'im'=> $im]);
 
 		$arr['token'] = $token;
+		$arr['im'] = $im;
+		$arr['type'] = $array['type'];
 
 		$this->success($arr);
 	}
@@ -85,7 +90,7 @@ class login extends all
 	public function forgetAction()
 	{
 
-		$post=$this->validate([
+		$post = $this->validate([
 				'phone' => ['phone','phone'],
               	'password' => ['password','length','6,16'],
               	'code' => ['code','length','6,6']
@@ -106,5 +111,9 @@ class login extends all
 	}
 
 
+	public function textAction()
+	{
+		$this->models->registerIm(1);
+	}
 }
 ?>

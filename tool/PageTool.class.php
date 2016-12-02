@@ -7,7 +7,7 @@ namespace tool;
 defined('ACC')||exit('Acc Denied');
 
 
-class HtmlTool
+class PageTool
 {
 
     static public function pageShow($total,$page=false,$pagesize=4) {

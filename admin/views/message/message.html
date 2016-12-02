@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="<?php echo PATH;?>css/admin_login.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+#msg-box {
+	width: 360px;
+	border: 1px #CCE7FF solid;
+	margin: 150px auto;
+}
+#msg-box h3 {
+	height: 26px;
+	line-height: 26px;
+	border-bottom: 1px #CCE7FF solid;
+	padding: 0 12px;
+	font-size: 14px;
+	background: #CCE7FF;
+}
+#msg-box .msg {
+	padding: 45px;
+}
+#msg-box .link {
+	background: #CCE7FF;
+	height: 26px;
+	line-height: 26px;
+	text-align: center;
+}
+#msg-box .link  a{
+	color:#428bca;
+}
+</style>
+</head>
+<body>
+<div id="msg-box">
+	<h3>系统提示</h3>
+    <div class="msg"><?php echo $this->msg;?></div>
+    <div class="link"><a href="<?php echo $this->link;?>">如果您的浏览器没有反映,请点击这里</a></div>
+</div>
+</body>
+</html>

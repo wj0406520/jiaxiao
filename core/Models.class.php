@@ -41,9 +41,12 @@ class Models extends LinkSql {
     //初始化函数
     public function __construct($table='')
     {
+
         //引入mysql对象    进行操作
         $this->db = Mysql::getIns();
+        //获取当前数据库的前缀
         $this->pref = $this->db->getPref();
+        //获取当前数据库中所有的表
         $this->table_array=$this->db->showTables();
         if ($table) {
             $this->table=$table;
@@ -52,6 +55,11 @@ class Models extends LinkSql {
         if ($this->table) {
             $this->checkTable();
         }
+    }
+
+    public function getConf()
+    {
+        return $this->db->getConf();
     }
 
 
@@ -63,11 +71,15 @@ class Models extends LinkSql {
         if (strpos($this->table, $this->pref) === false) {
             $this->table = $this->pref . $this->table;
         }
+        //判断表是否存在
         if (!in_array($this->table, $this->table_array)) {
             $this->errno = '10001';
+            //返回错误信息
             $this->error($this->table);
         }
+        //descTables()显示当前表中所有字段，并获取主见名称
         $this->field_array = $this->db->descTables($this->table);
+        //主键
         $this->main_key = $this->db->main_key;
     }
 
@@ -345,7 +357,7 @@ class Models extends LinkSql {
             $this->checkField($value, '10003');
             $array[] = $str . $value;
         }
-
+        //查询除了$field字段之外的字段
         if($aoo == 'no'){
             $array = array_diff($this->field_array, $array);
         }
@@ -481,7 +493,7 @@ class Models extends LinkSql {
     根据两个或多个表中的列之间的关系
     要配合jion使用
     parms $field  操作的字段 $this->jionField('w.id=s.fid')
-    $this->table('ssssss')->alias('a')->join('think_work','w','RIGHT')->jionField('w.id=a.fid')->select()
+    $this->table('ssssss')->alias('a')->join('think_work','w','RIGHT')->joinLink('w.id=a.fid')->select()
     select * from ssssss as a right join think_work as w on w.id=a.fid
     */
     public function joinLink($field)
@@ -500,6 +512,19 @@ class Models extends LinkSql {
     {
 
         $this->field = ' ' . $field . ' ';
+        return $this;
+    }
+
+    /*
+    join专用order
+    要配合jion使用
+    parms $order  操作的字段 $this->joinOrder('r.create_time desc')
+
+    */
+    public function joinOrder($order)
+    {
+
+        $this->order = ' ORDER BY ' . $order . ' ';
         return $this;
     }
 
@@ -833,16 +858,10 @@ class Models extends LinkSql {
     /*
     提交事务
     */
-    public function commit(){
-        $this->db->commit();
+    public function commit($boolean){
+        $this->db->commit($boolean);
     }
 
-    /*
-    回滚事务
-    */
-    public function rollback(){
-        $this->db->rollback();
-    }
 
     /*
     直接执行sql语句

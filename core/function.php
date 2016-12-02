@@ -59,8 +59,10 @@ function diyDate($data, $type = 0){
     $str = '';
     if ($type == 0) {
        $str = date('Y-m-d', $data);
-    } else {
-       $str = date('Y-m-d H:i:s', $data);
+    } else if ($type == 1){
+       $str = date('Y-m-d H:i', $data);
+    }else{
+         $str = date('Y-m-d H:i:s', $data);
     }
     return $str;
 }
@@ -107,6 +109,7 @@ function accessController(){
     $m = $name . $_GET['m'];
     $a = $_GET['a'] . ACTION;
     define('URL_MODEL',$_GET['m']);
+    define('URL_CONTROL',$_GET['a']);
     unset($_GET['m']);
     unset($_GET['a']);
 
@@ -132,6 +135,8 @@ function getRoot($url = ''){
     $str = str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']);
 
     header('location:' . $str . $url);
+
+    exit;
 }
 
 function p(){

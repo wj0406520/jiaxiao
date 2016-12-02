@@ -22,7 +22,7 @@ class login extends core\models
                 'password' => md5($psw),
                 'phone' => $phone
             ];
-        $re = $this->field('id,type')->where($arr)->fetchsql(0)->getOne();
+        $re = $this->field('id,type,im')->where($arr)->fetchsql(0)->getOne();
         return $re;
     }
 
@@ -36,5 +36,18 @@ class login extends core\models
         return $re['id'];
     }
 
+    public function registerIm($id)
+    {
+
+        $conf = core\conf::getIns();
+        $msg['username']=date('YmdHis').$id;
+        $msg['password']='123456';
+        $http=new \tool\HttpTool();
+        $url=$conf->hxurl.$conf->hxuname.'/'.$conf->hxapp.'/users';
+
+        $a=$http->post($url,json_encode($msg));
+
+        return $msg['username'];
+    }
 }
 ?>

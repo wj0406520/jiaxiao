@@ -20,90 +20,36 @@ class user extends core\models
     public function getInfo()
     {
 
-        $re=$this->field('name,face,personality,sex')->fetchsql(0)->find(self::$user_id);
+        $re=$this->field('name,face,personality,sex,is_authen,push')->fetchsql(0)->find(self::$user_id);
 
         return $re;
     }
 
-    public function bespeak($arr)
+
+    public function friendsList($arr)
     {
-    	$a=$this
-		->table('yuyue')
-        ->alias('y')
-        ->join('yuyue_sp','ys')
-        ->joinLink('y.spid=ys.id')
-        ->joinField('ys.spzs,ys.spbt,y.id,y.money')
-        ->page($arr['page'],$arr['pagesize'])
-		->where('y.userid='.$arr['userid'].' and is_delete=0')
-        ->order('xdsj desc')
-		->select();
-        return $a;
+    	$where=implode(',',$arr);
+
+    	$re=$this
+    	->joinField('id as friends_id,name,face,personality')
+    	->where(['im'=>['in'=>$where]])
+    	->select();
+    	return $re;
     }
 
-    public function huodong($arr)
+    public function changePsw($arr)
     {
-        $a=$this
-        ->table('huodong_bm')
-        ->alias('hb')
-        ->join('huodong','h')
-        ->joinLink('hb.hdid=h.id')
-        ->joinField('h.hdzs,h.hdbt,hb.id,hb.money')
-        ->page($arr['page'],$arr['pagesize'])
-        ->where('hb.userid='.$arr['userid'].' and is_delete=0')
-        ->order('bmsj desc')
-        ->select();
-        return $a;
+    	$re = $this
+    	->field('password')
+    	->find(self::$user_id);
+
+    	if(md5($arr['ordpsw'])!=$re['password']){
+    		$this->errorMsg('passwordError');
+    	}
+    	$array['password']=md5($arr['password']);
+    	$array['id']=self::$user_id;
+    	$this->create($array);
+    	return true;
     }
-
-    public function hdinfo($arr)
-    {
-        $a=$this
-        ->table('huodong_bm')
-        ->alias('hb')
-        ->join('huodong','h')
-        ->joinLink('hb.hdid=h.id')
-        ->joinField('h.hdxq,hb.bmrs,hb.bmsj,h.jzbmsj,h.hdjssj,h.address,h.hdbt,hb.id,hb.money,hb.status')
-        ->where('hb.userid='.$arr['userid'].' and is_delete=0 and hb.id='.$arr['id'])
-        ->getOne();
-        if(!$a){
-            $a=array();
-        }
-
-        return $a;
-    }
-
-    public function bsinfo($arr)
-    {
-        $a=$this
-        ->table('yuyue')
-        ->alias('y')
-        ->join('yuyue_sp','ys')
-        ->joinLink('y.spid=ys.id')
-        ->joinField('ys.spxq,ys.spxq,ys.spbt,y.id,y.money,y.yykssj,y.yyjssj,y.yysj,y.xdsj,y.code,y.status')
-        ->where('y.userid='.$arr['userid'].' and is_delete=0 and y.id='.$arr['id'])
-        ->getOne();
-        if(!$a){
-            $a=array();
-        }
-        return $a;
-    }
-
-    public function card($arr)
-    {
-        $arr['creattime']=time();
-        $a=$this->table('renzhen')->where(array('code'=>$arr['code']))->count();
-        if($a){
-            $this->error='cardHad';
-            return false;
-        }
-
-        $this->table('renzhen')->create($arr);
-
-        $this->table('user')->create(array('id'=>$arr['userid'],'is_renzhen'=>1));
-
-        return true;
-
-    }
-
 }
 ?>

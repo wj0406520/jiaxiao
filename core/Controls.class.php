@@ -26,7 +26,8 @@ class Controls {
      */
     public function __construct()
     {
-        $this->controlsname = str_replace('Action', '',  get_class($this));
+
+        $this->controlsname = str_replace('/', '\\',  APP.CONTROLS.'/'.URL_MODEL);
         $this->modelsname = str_replace(CONTROLS, MODELS, $this->controlsname);
         $this->models();
         $this->before();
@@ -59,11 +60,13 @@ class Controls {
                 $models = $path.'\\'.$models;
             }
         }
+
         if (is_file(str_replace('\\', '/',ROOT.$models.'.'.MODELS.'.php'))) {
           $this->models = new $models();
         } else {
           $this->models = new models();
         }
+
         return $this->models;
     }
 
@@ -72,13 +75,15 @@ class Controls {
      */
     public function display($name = '0', $arr = array())
     {
+      
         if ($arr) {
           foreach ($arr as $key => $value) {
             $$key = $value;
           }
         }
+
         if ($name === '0') {
-            $file = VIEWSDIR.URL_MODEL.'/'.$this->getFunction().'.html';
+            $file = VIEWSDIR.URL_MODEL.'/'.URL_CONTROL.'.html';
         } else {
             $file = VIEWSDIR.URL_MODEL.'/'.$name.'.html';
         }
@@ -116,7 +121,7 @@ class Controls {
               $a[$v[0]] = isset($arr[$v[0]]) ? $arr[$v[0]] : $v[1];
               break;
             case 'time':
-              $a[$v[0]] = time();
+              $a[$v[0]] = TIME;
               break;
 
             default:
@@ -297,6 +302,7 @@ class Controls {
 
     public function redirect($path, $arr = array())
     {
+
         $url = array();
         $str = '';
         if ($arr) {
@@ -306,6 +312,8 @@ class Controls {
           $url = implode('&', $url);
           $str = '?' . $url;
         }
+
+
         getRoot($path . $str);
     }
 
@@ -319,12 +327,23 @@ class Controls {
        $arr = array_column($trace, 'function', 'class');
 
        $name = str_replace('Action', '', $arr[$this->controlsname]);
+       //echo $name;
        return $name;
        // foreach ($trace as $key => $value) {
        //     if($value['class']==$this->controlsname){
        //          return $trace[$key]['function'];
        //     }
        // }
+
+
+       //admin\controls\index::indexAction 
+       //获取当前方法名
+       // $method=__METHOD__;
+       // $arr=explode('::',$method);
+       // $name=str_replace('Action', '',$arr[1]);
+       // echo $name;
+       // return $name;
+
     }
 
 

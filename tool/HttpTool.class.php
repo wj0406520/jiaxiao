@@ -20,9 +20,7 @@ class HttpTool{
      */
     static public function post($url,$arr){
 
-        if (!extension_loaded("curl")) {
-            $this->error('curl error',2);
-        }
+        self::check();
 
         //构造xml
         $xmldata=$arr;
@@ -36,6 +34,10 @@ class HttpTool{
         curl_setopt($curl, CURLOPT_POSTFIELDS, $xmldata);
         //抓取URL并把它不传递给浏览器
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        //强制协议为1.0
+        curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+        //强制使用IPV4协议解析域名
+        curl_setopt($curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4 );
         //存取数据
         $file_contents = curl_exec($curl);
         //关闭cURL资源，并且释放系统资源
@@ -53,9 +55,7 @@ class HttpTool{
      */
     static public function get($url,$arr){
 
-        if (!extension_loaded("curl")) {
-            $this->error('curl error',2);
-        }
+        self::check();
 
         $str=http_build_query($arr);
         $url=$str?$url.'?'.$str:$url;
@@ -65,6 +65,10 @@ class HttpTool{
         curl_setopt($curl, CURLOPT_URL,$url);
         //抓取URL并把它不传递给浏览器
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        //强制协议为1.0
+        curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+        //强制使用IPV4协议解析域名
+        curl_setopt($curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4 );
         //存取数据
         $file_contents = curl_exec($curl);
         //关闭cURL资源，并且释放系统资源
@@ -73,5 +77,15 @@ class HttpTool{
         return $file_contents;
 
     }
+
+    static public function check()
+    {
+        if (!extension_loaded("curl")) {
+            echo 'curl error';
+            exit;
+        }
+
+    }
+
 }
 ?>

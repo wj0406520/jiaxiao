@@ -24,6 +24,8 @@ return [
 
     'pref' => 't_',         // 数据库表前缀
 
+    'img_url'=>'',
+
 
     //短信接口相关配置
     'account' => 'jksc481',                            //帐号
@@ -35,6 +37,12 @@ return [
     'contentright' => '【瀚客网】',                    //内容  验证码右边
 
     'url' => 'http://sh2.ipyy.com/smsJson.aspx',       //验证码地址
+
+
+    //环信相关配置
+    'hxurl'=>'https://a1.easemob.com/',
+    'hxuname'=>'1152161115178846',
+    'hxapp'=>'haiyueshanghsalliance',
 
     'selfurl' => 'http://www.firstsee.top',            //个人网站主页
 

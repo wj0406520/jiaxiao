@@ -91,6 +91,11 @@ class Mysql extends Db {
         return $rs;
     }
 
+    public function getConf()
+    {
+        return $this->conf;
+    }
+
     //获取数据库前缀
     public function getPref()
     {

@@ -20,8 +20,8 @@ class Error {
      * @return [array]       [错误数据]
      */
     public static function diyError($type = ''){
-        if (!file_exists(TYPE)) {
-            debug('no found file ' . TYPE);
+        if (!file_exists(ERRORFILE)) {
+            debug('no found file ' . ERRORFILE);
             return false;
         }
         $arr = include(ERRORFILE);
@@ -59,6 +59,7 @@ class Error {
      * @param  [array] $arr [输出的数据]
      */
     public static function renderForAjax($arr){
+        header('Access-Control-Allow-Origin:*');
         echo jsonEncode($arr);
         exit;
     }

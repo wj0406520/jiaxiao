@@ -1,6 +1,5 @@
 <?php
 
-
 namespace api\models;
 
 use core;

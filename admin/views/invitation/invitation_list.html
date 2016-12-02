@@ -1,0 +1,87 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>论坛管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="<?php echo PATH;?>css/common.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo PATH;?>css/main.css" />
+<style type="text/css">
+    #user_type option{
+        padding: 2px 4px;
+    }
+    .result-tab th,.result-tab td{
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+<!-- top -->
+<?php include VIEWSDIR.'/public/top.html'; ?>
+    <div class="container clearfix" >
+    <!-- menu -->
+<?php include VIEWSDIR.'/public/menu.html'; ?>
+        <div class="result-wrap">
+        <div class="crumb-wrap" style="margin-left:170px;">
+            <div class="crumb-list"><i class="icon-font"></i><a href="<?php echo URL;?>/index/index">首页</a><span class="crumb-step">&gt;</span><span>论坛管理</span></div>
+        </div>
+            <div class="main-wrap">
+                <div class="result-title">
+                    <form action="?" method="get">
+                    <table class="search-tab">
+                        <tbody>
+                          <tr>
+                            <th width="70">用户名:</th>
+                            <td>
+                                <input class="common-text" placeholder="用户名" name="name" value="<?php echo $array['name']; ?>"  type="text">
+                            </td>
+                            <th width="120">选择分类:</th>
+                            <td>
+                                <select name="type" id="user_type">
+                                    <option value="0">全部</option>
+                                    <?php foreach ($type as $key => $val) {?>
+                                    <option value="<?php echo $key?>" <?php if ($array['type']==$key) {echo 'selected';} ?>><?php echo $val?></option>
+                                    <?php }?>
+                                </select>
+                            </td>
+                            <td><input class="btn btn-primary btn2" value="查询" type="submit"></td>
+                          </tr>
+                        </tbody>
+                    </table>
+                    </form>
+                </div>
+                <div class="result-content">
+                    <table class="result-tab" width="100%">
+                        <tbody>
+                            <tr>
+                                <th>序号</th>
+                                <th>用户名</th>
+                                <th>用户类型</th>
+                                <th>论坛标题</th>
+                                <th>发布时间</th>
+                                <th>用户操作</th>
+                            </tr>
+                                <?php if(!$info){?>
+                            <tr>
+                                <td colspan="6">当前没有您要的记录</td>
+                            </tr>
+                                <?php }else{ foreach ($info as $k=> $value) {?>
+                            <tr>
+                                <td><?php echo $k+1;?></td>
+                                <td><?php echo $value['name'];?></td>
+                                <td><?php echo $type[$value['type']];?></td>
+                                <td><?php echo $value['title'];?></td>
+                                <td><?php echo diyDate($value['create_time'],1);?></td>
+                                <td>
+                                    <a href="<?php echo URL;?>/invitation/info?id=<?php echo $value['id']?>">查询详情</a>
+                                </td>
+                            </tr>
+                            <?php } }?>
+                            <?php echo $page;?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

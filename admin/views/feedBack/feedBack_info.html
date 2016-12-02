@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="<?php echo PATH;?>css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo PATH;?>css/main.css"/>
+    <script type="text/javascript" src="<?php echo PATH;?>js/libs/modernizr.min.js"></script>
+</head>
+<body>
+<!-- top -->
+<?php include VIEWSDIR.'/public/top.html'; ?>
+<div class="container clearfix">
+<!-- menu -->
+<?php include VIEWSDIR.'/public/menu.html'; ?>
+    <!--/sidebar-->
+    <div class="main-wrap" style="padding:0 0 0 20px;">
+ 
+        <div class="crumb-wrap">
+            <div class="crumb-list">
+                <i class="icon-font"></i><a href="<?php echo URL;?>/index/index">首页</a>
+                <span class="crumb-step">&gt;</span><a class="crumb-name" href="<?php echo URL;?>/feedBack/index">意见反馈</a>
+                <span class="crumb-step">&gt;</span><span>反馈详情</span>
+            </div>
+        </div>
+        <div class="result-wrap" style="background:#fff;padding:0 20px 20px;">
+            <div class="result-content">
+                <form action="/jscss/admin/design/add" method="post" id="myform" name="myform" enctype="multipart/form-data">
+                    <table class="insert-tab" width="100%">
+                        <tbody>
+                            <tr>
+                                <th width="120">用户名：</th>
+                                <td>
+                                    <?php echo $info['name'];?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>用户类型：</th>
+                                <td>
+                                     <?php echo $type[$info['type']];?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>反馈时间：</th>
+                                <td>
+                                    <?php echo diyDate($info['create_time'],1);?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>反馈内容：</th>
+                                <td>
+                                    <?php echo $info['msg'];?>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <!--/main-->
+</div>
+</body>
+</html>

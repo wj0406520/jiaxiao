@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" type="text/css" href="<?php echo PATH;?>css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="<?php echo PATH;?>css/main.css"/>
+    <script type="text/javascript" src="<?php echo PATH;?>js/libs/modernizr.min.js"></script>
+    <style type="text/css">
+        .sys-info-list li{
+            padding:6px 0;
+        }
+    </style>
+
+</head>
+<body>
+<!-- 头部文件 -->
+<?php include VIEWSDIR.'/public/top.html'; ?>
+<div class="container clearfix" style="background:#fff">
+    <!-- 菜单 -->
+    <?php include VIEWSDIR.'/public/menu.html'; ?>
+    <!--/sidebar-->
+    <div class="main-wrap" style="padding:0 0 0 20px;">
+        <div class="crumb-wrap">
+            <div class="crumb-list"></div>
+        </div>
+      
+        <div class="result-wrap"  style="border:none;background:#fff;padding-right:20px;">
+            
+            <div class="result-title">
+                <h1>系统基本信息</h1>
+            </div>
+            <div class="result-content">
+                <ul class="sys-info-list">
+                     <li>
+                        <label class="res-lab">操作系统 </label><span class="res-info"><?php echo PHP_OS;?></span>
+
+                    </li>
+                    <li>
+                        <label class="res-lab">运行环境 </label><span class="res-info"><?php echo php_sapi_name();?></span>
+                    </li>
+                  
+                    <li>
+                        <label class="res-lab">北京时间 </label><span class="res-info"><?php echo date("Y-m-d H:i:s",time());?></span>
+                    </li>
+                    <li>
+                        <label class="res-lab">服务器域名/IP </label><span class="res-info"><?php echo $_SERVER['HTTP_HOST'];?></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <!--/main-->
+</div>
+</body>
+</html>
