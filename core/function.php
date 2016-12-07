@@ -79,7 +79,7 @@ function diyType($type = ''){
     }
     $arr = include(TYPE);
     if ($type) {
-        if (!in_array($type,$arr)) {
+        if (array_key_exists($type,$arr)) {
             return $arr[$type];
         } else {
             debug('no found type '.$type);
@@ -108,7 +108,9 @@ function accessController(){
     $name = str_replace('/', '\\', APP . CONTROLS . '\\');
     $m = $name . $_GET['m'];
     $a = $_GET['a'] . ACTION;
+    //控制器名称
     define('URL_MODEL',$_GET['m']);
+    //控制器中的方法名
     define('URL_CONTROL',$_GET['a']);
     unset($_GET['m']);
     unset($_GET['a']);

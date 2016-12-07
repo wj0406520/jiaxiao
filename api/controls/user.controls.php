@@ -43,6 +43,13 @@ class user extends all
 		// }
 		if($check){
 			$check['id'] = \core\Models::$user_id;
+
+			$re=$this->models->find($check['id']);
+
+			$im=$this->models('im')->changeNickname(['name'=>$check['name'],'im'=>$re['im']]);
+
+			$this->models();
+
 			$this->models->create($check);
 		}
 

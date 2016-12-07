@@ -27,7 +27,9 @@ class friends extends all
 				'search' => ['phone', 'phone'],
 			]);
 		}
-
+		if(!$check['search']){
+			$this->success();
+		}
 		$a = $this->models->search($check);
 
 		$this->success($a);

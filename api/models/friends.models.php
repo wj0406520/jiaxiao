@@ -37,9 +37,9 @@ class friends extends core\models
         $array['friendship']=$re;
         $re=$this
         ->table('user')
-        ->joinField('id as friends_id,name,face,sex,personality,phone')
+        ->joinField('id as friends_id,name,face,sex,personality,phone,im')
         ->find($arr['friends_id']);
-        if(!$array){
+        if(!$re){
         	$this->errorMsg('usermiss');
         }
         $re=array_merge($re,$array);
@@ -80,7 +80,7 @@ class friends extends core\models
         ->alias('a')
         ->join('user','u')
         ->joinLink('a.user_id=u.id')
-        ->joinField('a.id as add_id,u.name,u.face,a.state,a.create_time')
+        ->joinField('a.id as add_id,u.name,u.face,u.sex,u.im,a.state,a.create_time')
         ->where('a.state!=3 and a.friends_id='.$user_id)
         ->joinOrder('a.create_time desc')
         ->select();

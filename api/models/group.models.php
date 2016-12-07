@@ -37,7 +37,7 @@ class group extends core\models
         $arr['is_delete']=0;
         $array['type']=0;
         $re=$this
-        ->joinField('id as group_id,name')
+        ->joinField('id as group_id,name as group_name')
         ->where($arr)
         ->where($array,'OR')
         ->select();

@@ -12,7 +12,6 @@ class login extends all{
 
 
 	public function indexAction(){
-		
 		$this->display('login');
 
 	}

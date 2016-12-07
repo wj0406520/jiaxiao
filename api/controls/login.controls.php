@@ -73,7 +73,9 @@ class login extends all
 
 		$a = $this->models->insertId();
 
-		$im=$this->models->registerIm($a);
+		$im=$this->models('im')->registerIm(['id'=>$a,'nickname'=>$post['name']]);
+
+		$this->models();
 
 		$token = $a . '|' . token();
 
@@ -113,7 +115,7 @@ class login extends all
 
 	public function textAction()
 	{
-		$this->models->registerIm(1);
+		$this->models->registerIm(['id'=>1,'nickname'=>'haha']);
 	}
 }
 ?>

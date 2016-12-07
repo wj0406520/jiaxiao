@@ -36,18 +36,5 @@ class login extends core\models
         return $re['id'];
     }
 
-    public function registerIm($id)
-    {
-
-        $conf = core\conf::getIns();
-        $msg['username']=date('YmdHis').$id;
-        $msg['password']='123456';
-        $http=new \tool\HttpTool();
-        $url=$conf->hxurl.$conf->hxuname.'/'.$conf->hxapp.'/users';
-
-        $a=$http->post($url,json_encode($msg));
-
-        return $msg['username'];
-    }
 }
 ?>

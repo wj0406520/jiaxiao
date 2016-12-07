@@ -28,10 +28,13 @@ class user extends core\models
 
     public function friendsList($arr)
     {
-    	$where=implode(',',$arr);
-
+        if(is_array($arr)){
+            $where=implode(',',$arr);
+        }else{
+            $where=$arr;
+        }
     	$re=$this
-    	->joinField('id as friends_id,name,face,personality')
+    	->joinField('id as friends_id,name,im,face,personality')
     	->where(['im'=>['in'=>$where]])
     	->select();
     	return $re;
@@ -51,5 +54,6 @@ class user extends core\models
     	$this->create($array);
     	return true;
     }
+
 }
 ?>
